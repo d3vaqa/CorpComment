@@ -4,11 +4,29 @@
 const textareaEL = document.querySelector('.form__textarea');
 const counterEL = document.querySelector('.counter');
 const feedbackEL = document.querySelector('.feedbacks');
-
+const submitEL = document.querySelector('.submit-btn');
 const maxLength = 150;
 
+
+
+
+// utilities
+
+const showVisualIndicator = (textCheck) => {
+    const className = textCheck === 'form--valid' ? 'form--valid' : 'form--invalid';
+    form.classList.add(className);
+    setTimeout(() => {
+        form.classList.remove(className);
+    }, 3000);
+    textareaEL.focus();    
+    return // stop the execution if the form data is invali
+}
+
+
+
+
+
 textareaEL.addEventListener('input', () => {
-        const maxLength = 150;
         const currentLength = textareaEL.value.length;
         const remainingChars = maxLength - currentLength;
 
@@ -26,7 +44,6 @@ textareaEL.addEventListener('input', () => {
 
 
 // Form Component
-
 const form = document.querySelector('.form');
 
 form.addEventListener('submit', (event) => {
@@ -35,18 +52,12 @@ form.addEventListener('submit', (event) => {
 
   // Validate the form data
   if (!formData.includes('#') || formData.length <= 10) {
-    form.classList.add('form--invalid');
-    setTimeout(() => {
-        form.classList.remove('form--invalid');
-    }, 3000);
-    textareaEL.focus();    
-    return // stop the execution if the form data is invalid
+    showVisualIndicator('form--invalid')
+    
   }else{
-    form.classList.add('form--valid');
-    setTimeout(() => {
-      form.classList.remove('form--valid');
-  }, 3000);
+    showVisualIndicator('form--valid')
   }
+
 
   console.log(formData); // log the form data to the console
 
@@ -71,14 +82,15 @@ form.addEventListener('submit', (event) => {
             <span class="up__count">${upvoteCount}</span>
         </button>
 
-        <section class="feedback__bagde">
-            <p classs="feedback__letter">${badge}</p>
+        <section class="feedback__badge">
+            <p class="feedback__letter">${badge}</p>
         </section>
 
         <div class="feedback__content">
             <p class="feedback__company">${company}</p>
             <p class="feedback__text">${formData}</p>
         </div>
+        <p class="feedback__days">${daysAgo === 0 ? 'New' : `${daysAgo}d`} </p>
     
     </li>   
     `
@@ -106,5 +118,7 @@ form.addEventListener('submit', (event) => {
     // console.log(justAnotherdHashtag)
   textareaEL.value = '';
   textareaEL.focus();    
+//   submitEL.blur()
+  counterEL.textContent = maxLength;
 });
 

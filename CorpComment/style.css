@@ -402,7 +402,7 @@ button {
 
 .feedback__letter {
     font-size: 24px;
-    color: #fff;
+    color: #fff !important;
     font-weight: 700;
     margin-right: -2px;
 }
